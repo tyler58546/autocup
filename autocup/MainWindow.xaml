@@ -17,7 +17,7 @@
         <Button x:Name="toggleButton" Content="Start" Margin="10,0,10,31" VerticalAlignment="Bottom" Height="52" Grid.ColumnSpan="2" Click="ToggleButton_Click"/>
         <Label Content="Status:" HorizontalAlignment="Right" Margin="0,84,0,0" VerticalAlignment="Top" Width="51" Height="28" d:LayoutOverrides="VerticalAlignment"/>
         <Label x:Name="statusLabel" Content="Ready" Margin="0,84,57,0" VerticalAlignment="Top" Height="28" Grid.Column="1" d:LayoutOverrides="VerticalAlignment"/>
-        <TextBlock Margin="10,0,10,10" TextWrapping="Wrap" Text="Copyright © 2019 Tyler Knox" VerticalAlignment="Bottom" Grid.ColumnSpan="2" TextAlignment="Center"/>
+        <TextBlock Margin="10,0,10,10" TextWrapping="Wrap" Text="Copyright © 2020 Tyler Knox" VerticalAlignment="Bottom" Grid.ColumnSpan="2" TextAlignment="Center"/>
         <Label Content="Cups:" HorizontalAlignment="Right" Margin="0,117,0,0" VerticalAlignment="Top" Width="51" Height="28"/>
         <Label x:Name="cupsLabel" Content="0" HorizontalAlignment="Right" Margin="0,117,10,0" VerticalAlignment="Top" Width="156" Height="28" Grid.Column="1"/>
 
