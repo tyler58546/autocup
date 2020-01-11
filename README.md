@@ -4,6 +4,8 @@ Tired of manually typing cup? This tool will automatically type it for you!
 ## Features
 - Auto backspace to prevent cupcup
 - Customizable delay
+- Customizable message
+- Built in stopwatch
 - Cup counter
 - GUI
 
