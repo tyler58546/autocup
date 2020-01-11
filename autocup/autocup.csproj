@@ -90,6 +90,10 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <Resource Include="fonts\OpenSans-Bold.ttf" />
+    <Resource Include="fonts\OpenSans-Light.ttf" />
+    <Resource Include="fonts\OpenSans-Regular.ttf" />
+    <Resource Include="fonts\OpenSans-SemiBold.ttf" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

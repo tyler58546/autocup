@@ -15,6 +15,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
+using System.Globalization;
 
 namespace autocup
 {
@@ -28,17 +29,28 @@ namespace autocup
         // 0 - Disabled
         // 1 - Countdown
         // 2 - Running
+        // 3 - Paused
 
         uint countdown = 5;
         System.Timers.Timer myTimer = new System.Timers.Timer();
+        System.Timers.Timer stopwatch = new System.Timers.Timer();
         ulong cups = 0;
         int interval = 6500;
+        bool stopwatchEnabled = false;
+        ulong timeElapsed = 0;
+
+        //timer bad
+        public bool timerEnabled = true;
 
         public MainWindow()
         {
             InitializeComponent();
+            setUIMode(0);
             myTimer.Elapsed += new ElapsedEventHandler(TimerFunc);
             myTimer.Interval = 1000;
+            stopwatch.Elapsed += new ElapsedEventHandler(StopwatchFunc);
+            stopwatch.Interval = 1000;
+            stopwatch.Start();
         }
 
         public void ShowErrorMessage(string text)
@@ -48,6 +60,49 @@ namespace autocup
             {
                 System.Windows.MessageBox.Show(text);
             });
+        }
+
+        public void setUIMode(int mode)
+        {
+            if (mode == 2)
+            {
+                //Countdown
+                startButton.Visibility = Visibility.Visible;
+                startButton.Content = "Cancel";
+                startButton.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#949494"));
+                GridA.Visibility = Visibility.Hidden;
+                GridB.Visibility = Visibility.Hidden;
+                GridC.Visibility = Visibility.Visible;
+                stopButton.Visibility = Visibility.Hidden;
+                pauseButton.Visibility = Visibility.Hidden;
+                return;
+            } else
+            {
+                startButton.Content = "Start";
+                GridC.Visibility = Visibility.Hidden;
+                startButton.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#32A6E2"));
+            }
+
+
+            var v1 = Visibility.Visible;
+            var v2 = Visibility.Hidden;
+
+            if (mode == 1)
+            {
+                v1 = Visibility.Hidden;
+                v2 = Visibility.Visible;
+            }
+
+            GridA.Visibility = v1;
+            GridB.Visibility = v2;
+            startButton.Visibility = v1;
+            stopButton.Visibility = v2;
+            pauseButton.Visibility = v2;
+        }
+
+        private void StopButton_Click(object sender, RoutedEventArgs e)
+        {
+
         }
 
         private void ToggleButton_Click(object sender, RoutedEventArgs e)
@@ -75,30 +130,60 @@ namespace autocup
                     return;
                 }
 
+                if (messageTextField.Text == "")
+                {
+                    ShowErrorMessage("you must enter a message");
+                    return;
+                }
+
+
+                //NO MUG PROPAGANA
+                //CUPS > MUGS
+                if (messageTextField.Text.ToLower().Equals("mug"))
+                {
+                    ShowErrorMessage("cups > mugs");
+                    throw new CupsBetterThanMugsException();
+                }
+
                 //Start the countdown
+                pauseButton.Content = "Pause";
                 myTimer.Interval = 1000;
-                myTimer.Start();
+                if (!myTimer.Enabled)
+                {
+                    myTimer.Start();
+                }
+                timerEnabled = true;
                 status = 1;
                 countdown = 5;
                 UpdateCountdown();
                 countdown--;
-                toggleButton.Content = "Stop";
-                delayTextField.IsEnabled = false;
+
+                //Update UI
+                setUIMode(2);
+
                 return;
             }
-            if (status == 1 || status == 2)
+            if (status != 0)
             {
                 //Stop
-                myTimer.Stop();
+                timerEnabled = false;
+                stopwatchEnabled = false;
                 status = 0;
-                toggleButton.Content = "Start";
-                statusLabel.Content = "Ready";
+                startButton.Content = "Start";
                 delayTextField.IsEnabled = true;
+                timeElapsed = 0;
+                cups = 0;
+                setUIMode(0);
             } 
         }
 
         private void TimerFunc(object sender, ElapsedEventArgs e)
         {
+            if (!timerEnabled)
+            {
+                stopwatchEnabled = false;
+                return;
+            }
             switch (status)
             {
                 case 0:
@@ -119,6 +204,7 @@ namespace autocup
                             cup();
                         });
                         cups++;
+                        stopwatchEnabled = true;
                         UpdateCount();
                     }
                     break;
@@ -129,39 +215,82 @@ namespace autocup
                     });
                     cups++;
                     UpdateCount();
+                    stopwatchEnabled = true;
                     break;
                 default:
                     throw new Exception();
             }
         }
 
+        private void StopwatchFunc(object sender, ElapsedEventArgs e)
+        {
+            if (!stopwatchEnabled)
+            {
+                return;
+            }
+            timeElapsed++;
+            UpdateCount();
+        }
+
         private void UpdateCountdown()
         {
             this.Dispatcher.Invoke(() =>
             {
-                statusLabel.Content = "Starting in " + countdown + "...";
-                if (status == 2)
-                {
-                    statusLabel.Content = "Running";
-                }
+                countdownLabel.Content = "Starting in " + countdown + "...";
             });
         }
         private void UpdateCount()
         {
             this.Dispatcher.Invoke(() =>
             {
-                statusLabel.Content = "Running";
-                cupsLabel.Content = cups.ToString();
+                //Update time elapsed
+                timeElapsedLabel.Text = TimeSpan.FromSeconds(timeElapsed).ToString(@"hh\:mm\:ss", new CultureInfo("en-US"));
+
+
+                setUIMode(1);
+                cupsLabel.Text = cups.ToString();
+                string str = messageTextField.Text;
+                if (str.Length == 0)
+                {
+                    System.Console.WriteLine("Empty String");
+                }
+                else if (str.Length == 1)
+                {
+                    str = char.ToUpper(str[0]).ToString()+"s";
+                }
+                else
+                {
+                    str = char.ToUpper(str[0]) + str.Substring(1)+"s";
+                }
+                cupsLabelLabel.Text = str;
+                
             });
         }
 
-        public static void cup()
+        private void PauseButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (status == 3)
+            {
+                pauseButton.Content = "Pause";
+                status = 0;
+                timerEnabled = true;
+                ToggleButton_Click(null, null);
+                return;
+            }
+            timerEnabled = false;
+            stopwatchEnabled = false;
+            status = 3;
+            pauseButton.Content = "Resume";
+        }
+
+        public void cup()
         {
             Console.WriteLine("cup");
-            SendKeyBoradKey((short)Keys.Back);
-            SendKeyBoradKey((short)Keys.Back);
-            SendKeyBoradKey((short)Keys.Back);
-            SendUnicode("cup");
+            for (int i = 0; i < messageTextField.Text.Length; i++)
+            {
+                SendKeyBoradKey((short)Keys.Back);
+            }
+            SendUnicode(messageTextField.Text);
             SendKeyBoradKey((short)Keys.Enter);
         }
 
@@ -368,6 +497,18 @@ namespace autocup
                     return Keys.Z;
             }
         }
+
+        
     }
-    
+    [Serializable]
+    class CupsBetterThanMugsException : Exception
+    {
+        public CupsBetterThanMugsException()
+        {
+
+        }
+
+        
+
+    }
 }

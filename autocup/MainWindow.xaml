@@ -4,22 +4,62 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:autocup"
-        mc:Ignorable="d"
-        Title="autocup" Height="300" Width="340" ResizeMode="CanMinimize" Topmost="True">
-    <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="50*"/>
-            <ColumnDefinition Width="50*"/>
-        </Grid.ColumnDefinitions>
-        <TextBlock Margin="10,35,10,0" TextWrapping="Wrap" Text="A U T O  C U P" VerticalAlignment="Top" Height="95" TextAlignment="Center" FontFamily="Arial Black" FontSize="36" Grid.ColumnSpan="2"/>
-        <Label Content="Delay:" HorizontalAlignment="Right" Margin="0,148,0,0" Width="51" VerticalAlignment="Top"/>
-        <TextBox x:Name="delayTextField" HorizontalAlignment="Left" Margin="0,150,0,0" TextWrapping="Wrap" Text="6.5" Width="54" Grid.Column="1" FontSize="14" MinWidth="26" VerticalAlignment="Top"/>
-        <Button x:Name="toggleButton" Content="Start" Margin="10,0,10,31" VerticalAlignment="Bottom" Height="52" Grid.ColumnSpan="2" Click="ToggleButton_Click"/>
-        <Label Content="Status:" HorizontalAlignment="Right" Margin="0,84,0,0" VerticalAlignment="Top" Width="51" Height="28" d:LayoutOverrides="VerticalAlignment"/>
-        <Label x:Name="statusLabel" Content="Ready" Margin="0,84,57,0" VerticalAlignment="Top" Height="28" Grid.Column="1" d:LayoutOverrides="VerticalAlignment"/>
-        <TextBlock Margin="10,0,10,10" TextWrapping="Wrap" Text="Copyright © 2020 Tyler Knox" VerticalAlignment="Bottom" Grid.ColumnSpan="2" TextAlignment="Center"/>
-        <Label Content="Cups:" HorizontalAlignment="Right" Margin="0,117,0,0" VerticalAlignment="Top" Width="51" Height="28"/>
-        <Label x:Name="cupsLabel" Content="0" HorizontalAlignment="Right" Margin="0,117,10,0" VerticalAlignment="Top" Width="156" Height="28" Grid.Column="1"/>
+        mc:Ignorable="d"  ResizeMode="CanMinimize" Topmost="True" SizeToContent="WidthAndHeight">
+
+
+    <Grid Width="350" Height="350">
+
+        <TextBlock Margin="25,21,10,0" TextWrapping="Wrap" Text="AUTO CUP" VerticalAlignment="Top" Height="39" TextAlignment="Center" FontFamily="{StaticResource OpenSans}" FontStyle="Normal" FontSize="30" Grid.ColumnSpan="2" FontWeight="Bold" TextDecorations="{x:Null}" HorizontalAlignment="Left"/>
+
+        <Button x:Name="startButton" Content="Start" FontSize="18" Style="{StaticResource NoHover}" Cursor="Hand" Margin="42,250,0,0" VerticalAlignment="Top" Height="50" Click="ToggleButton_Click" Background="#FF32A6E2" Foreground="White" BorderThickness="0" BorderBrush="#00707070" HorizontalAlignment="Left" Width="267" FontFamily="{StaticResource OpenSans}" Visibility="Hidden">
+            <Button.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="10"/>
+                </Style>
+            </Button.Resources>
+        </Button>
+
+        <Button x:Name="stopButton" Content="Stop" FontSize="18" Style="{StaticResource NoHover}" Cursor="Hand" Margin="42,250,0,0" VerticalAlignment="Top" Height="50" Click="ToggleButton_Click" Background="#DC1212" Foreground="White" BorderThickness="0" BorderBrush="#00707070" HorizontalAlignment="Left" Width="128" FontFamily="{StaticResource OpenSans}">
+            <Button.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="10"/>
+                </Style>
+            </Button.Resources>
+        </Button>
+
+        <Button x:Name="pauseButton" Content="Pause" FontSize="18" Style="{StaticResource NoHover}" Padding="0" Cursor="Hand" Margin="180,250,0,0" VerticalAlignment="Top" Height="50" Click="PauseButton_Click" Background="#949494" Foreground="White" BorderThickness="0" BorderBrush="#00707070" HorizontalAlignment="Left" Width="128" FontFamily="{StaticResource OpenSans}">
+            <Button.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="10"/>
+
+                </Style>
+            </Button.Resources>
+
+        </Button>
+
+        <TextBlock Margin="10,0,10,10" TextWrapping="Wrap" Text="Copyright © 2020 Tyler Knox" VerticalAlignment="Bottom" Grid.ColumnSpan="2" TextAlignment="Center" FontFamily="{StaticResource OpenSans}" FontWeight="Light"/>
+        <Grid x:Name="GridA" Margin="41,101,41,147" Visibility="Hidden">
+            <Rectangle Fill="#DFDFDF" Stroke="Black" RadiusX="10" RadiusY="10" StrokeThickness="0" HorizontalAlignment="Left" Width="267" Height="100" VerticalAlignment="Top"/>
+            <TextBlock TextWrapping="Wrap" Text="Message" VerticalAlignment="Top" Height="50" FontFamily="{StaticResource OpenSans}" FontWeight="SemiBold" FontSize="14" Padding="10,15,0,0" HorizontalAlignment="Left" Width="131" />
+            <TextBlock Margin="0,50,0,2" TextWrapping="Wrap" Text="Delay" FontFamily="{StaticResource OpenSans}" FontWeight="SemiBold" FontSize="14" Padding="10,15,0,0" HorizontalAlignment="Left" Width="131" />
+            <TextBox x:Name="messageTextField" Height="50" Margin="132,0,0,0" Text="cup" VerticalAlignment="Top" BorderThickness="0" Background="Transparent" Padding="10,15,0,0" FlowDirection="RightToLeft" FontFamily="{StaticResource OpenSans}" FontWeight="Light" FontSize="14"/>
+            <TextBox x:Name="delayTextField" Height="50" BorderThickness="0" Background="Transparent" FlowDirection="RightToLeft" Padding="10,15,0,0" FontFamily="{StaticResource OpenSans}" FontWeight="Light" HorizontalAlignment="Right" Margin="0,52,1,0" Text="6.5" Width="136" FontSize="14" MinWidth="26"/>
+
+        </Grid>
+        <Grid x:Name="GridB" Margin="41,101,41,147" Visibility="Hidden">
+            <TextBlock TextWrapping="Wrap" Text="Time Elapsed" VerticalAlignment="Top" Height="50" FontFamily="{StaticResource OpenSans}" FontWeight="SemiBold" FontSize="14" Padding="10,15,0,0" HorizontalAlignment="Left" Width="131" />
+            <TextBlock x:Name="cupsLabelLabel" TextWrapping="Wrap" Text="Cups" VerticalAlignment="Top" Height="50" FontFamily="{StaticResource OpenSans}" FontWeight="SemiBold" FontSize="14" Padding="10,15,0,0" HorizontalAlignment="Left" Width="131" Margin="0,52,0,0" />
+            <TextBlock x:Name="timeElapsedLabel" TextWrapping="Wrap" Text="00:00:00" VerticalAlignment="Top" Height="50" FontFamily="{StaticResource OpenSans}" FontWeight="Light" FontSize="14" Padding="10,15,0,0" HorizontalAlignment="Left" Width="131" Margin="136,0,0,0" FlowDirection="RightToLeft" />
+            <TextBlock x:Name="cupsLabel" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Height="50" FontFamily="{StaticResource OpenSans}" FontWeight="Light" FontSize="14" Padding="10,15,0,0" HorizontalAlignment="Left" Width="131" Margin="137,52,0,0" FlowDirection="RightToLeft" />
+        </Grid>
+        <Grid x:Name="GridC" Margin="41,101,41,147">
+            <Label x:Name="countdownLabel" Content="Starting in 5..." VerticalAlignment="Top" Margin="85,15,75,0" FontFamily="{StaticResource OpenSans}" FontWeight="SemiBold" />
+            <Label Content="Click into the Discord message box now." VerticalAlignment="Bottom" Margin="17,0,17,18" FontFamily="{StaticResource OpenSans}" FontWeight="Light" FontStyle="Italic" />
+        </Grid>
+
+
+        <Rectangle Fill="WhiteSmoke" HorizontalAlignment="Left" Height="2" Margin="41,151,0,0" Stroke="Black" StrokeThickness="0" VerticalAlignment="Top" Width="267" Grid.ColumnSpan="2"/>
+        <Label Content="v1.1.0" HorizontalAlignment="Left" Margin="178,34,0,0" VerticalAlignment="Top" FontFamily="{StaticResource OpenSans}" FontWeight="Light"/>
 
     </Grid>
 </Window>
