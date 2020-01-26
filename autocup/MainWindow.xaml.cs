@@ -46,6 +46,11 @@ namespace autocup
         {
             InitializeComponent();
             setUIMode(0);
+
+            //use the correct decimal format for whatever country the user is in
+            double defaultDelay = 6.5;
+            delayTextField.Text = Convert.ToString(defaultDelay);
+
             myTimer.Elapsed += new ElapsedEventHandler(TimerFunc);
             myTimer.Interval = 1000;
             stopwatch.Elapsed += new ElapsedEventHandler(StopwatchFunc);
