@@ -17,6 +17,22 @@ namespace autocup
         public Discord.Discord discord;
         DiscordRPCManager RPCManager = new DiscordRPCManager();
         System.Timers.Timer discordTimer = new System.Timers.Timer();
+
+        private async void checkForUpdates()
+        {
+            Updater updater = new Updater();
+            Update update = await updater.checkForUpdatesAsync();
+            if (update != null)
+            {
+                MessageBoxResult result;
+                result = MessageBox.Show("A new version of Autocup is available (" + update.version + "). Would you like to download it now?", "Update Available", MessageBoxButton.YesNo);
+                if (result == MessageBoxResult.Yes)
+                {
+                    System.Diagnostics.Process.Start(update.downloadURL);
+                }
+            }
+        }
+
         private void Application_Startup(object sender, StartupEventArgs e)
         {
             discord = new Discord.Discord(709891028529971250, (UInt64)Discord.CreateFlags.Default);
@@ -25,6 +41,8 @@ namespace autocup
             discordTimer.Elapsed += new System.Timers.ElapsedEventHandler(DiscordTimerElapsed);
             discordTimer.Interval = 500;
             discordTimer.Start();
+
+            checkForUpdates();
         }
         private void DiscordTimerElapsed(object sender, ElapsedEventArgs e)
         {
