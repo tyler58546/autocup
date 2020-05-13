@@ -20,7 +20,6 @@ namespace autocup
                 string responseBody = await response.Content.ReadAsStringAsync();
                 // Above three lines can be replaced with new helper method below
                 // string responseBody = await client.GetStringAsync(uri);
-                responseBody = "a";
                 if (responseBody.Substring(0,5).Equals(System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString().Substring(0,5)))
                 {
                     return null;

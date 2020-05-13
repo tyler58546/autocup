@@ -35,7 +35,8 @@ namespace autocup
 
         private void Application_Startup(object sender, StartupEventArgs e)
         {
-            discord = new Discord.Discord(709891028529971250, (UInt64)Discord.CreateFlags.Default);
+            System.Environment.SetEnvironmentVariable("DISCORD_INSTANCE_ID", "0");
+            discord = new Discord.Discord(709891028529971250, (UInt64)Discord.CreateFlags.NoRequireDiscord);
             discord.RunCallbacks();
             RPCManager.UpdateRPC("Download at http://cup.wtf", "Idle", null);
             discordTimer.Elapsed += new System.Timers.ElapsedEventHandler(DiscordTimerElapsed);

@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+  <Product Id="71db32a0-512a-4039-908d-aad3fb712876" Name="Autocup" Language="1033" Version="1.2.0.0" Manufacturer="Tyler Knox" UpgradeCode="99ef595e-859d-4a84-9529-40256a3f77cf">
+    <Package Id="*" Keywords="Installer" Description="Autocup Installer" Manufacturer="Tyler Knox" Languages="1033" Compressed="yes"/>
+    <MediaTemplate EmbedCab="yes"/>
+    <UIRef Id="WixUI_Minimal" />
+    <UIRef Id="WixUI_ErrorProgressText" />
+    <WixVariable Id="WixUILicenseRtf" Value="license.rtf" />
+    <WixVariable Id="WixUIBannerBmp" Value="banner.bmp" />
+    <WixVariable Id="WixUIDialogBmp" Value="dialog.bmp" />
+    <Directory Id='TARGETDIR' Name='SourceDir'>
+      <Directory Id='ProgramFilesFolder' Name='PFiles'>
+        <Directory Id='tyler58546' Name='tyler58546'>
+          <Directory Id='INSTALLDIR' Name='Autocup'>
+            
+            <Component Id='MainExecutable' Guid='ca1b139e-4b57-43b8-b88e-a0c514aa92f1'>
+              <File Id='AutocupEXE' Source='$(var.autocup.TargetPath)' KeyPath='yes'>
+                <Shortcut Id="startmenuAutocup" Directory="ProgramMenuDir" Name="Autocup"
+            WorkingDirectory='INSTALLDIR' Icon="icon.ico" IconIndex="0" Advertise="yes" />
+                <Shortcut Id="desktopAutocup" Directory="DesktopFolder" Name="Autocup"
+                    WorkingDirectory='INSTALLDIR' Icon="icon.ico" IconIndex="0" Advertise="yes" />
+              </File>
+              <File Id='DiscordDLL' Source='discord_game_sdk.dll' KeyPath='no' />
+            </Component>
+           
+          </Directory>
+        </Directory>
+      </Directory>
+
+      <Directory Id="ProgramMenuFolder" Name="Programs">
+        <Directory Id="ProgramMenuDir" Name="Autocup">
+          <Component Id="ProgramMenuDir" Guid="7cf14534-4679-4b27-8235-3a2121ed67f0">
+            <RemoveFolder Id='ProgramMenuDir' On='uninstall' />
+            <RegistryValue Root='HKCU' Key='Software\[Manufacturer]\[ProductName]' Type='string' Value='' KeyPath='yes' />
+          </Component>
+        </Directory>
+      </Directory>
+
+      <Directory Id="DesktopFolder" Name="Desktop" />
+    </Directory>
+
+    <Icon Id="icon.ico" SourceFile="icon.ico" />
+
+    <Feature Id='Complete' Title='Autocup' Description='The complete package.'
+    Display='expand' Level='1' ConfigurableDirectory='INSTALLDIR'>
+        <ComponentRef Id='MainExecutable' />
+        <ComponentRef Id='ProgramMenuDir' />
+    </Feature>
+    
+   </Product>
+      <!--
+		<Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine" />
+
+		<MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
+		<MediaTemplate />
+
+		<Feature Id="ProductFeature" Title="AutocupSetup" Level="1">
+			<ComponentGroupRef Id="ProductComponents" />
+		</Feature>
+	</Product>
+
+	<Fragment>
+		<Directory Id="TARGETDIR" Name="SourceDir">
+			<Directory Id="ProgramFilesFolder">
+				<Directory Id="INSTALLFOLDER" Name="AutocupSetup" />
+			</Directory>
+		</Directory>
+	</Fragment>
+
+	<Fragment>
+		<ComponentGroup Id="ProductComponents" Directory="INSTALLFOLDER">
+	</Fragment>-->
+</Wix>
