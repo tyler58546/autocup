@@ -43,7 +43,7 @@ namespace autocup
             {
                 Console.WriteLine(e);
             }
-            GC.TryStartNoGCRegion(16777216);
+            GC.TryStartNoGCRegion(8388608);
             activityManager.UpdateActivity(activity, (result) =>
             {
                 if (result != Discord.Result.Ok)
