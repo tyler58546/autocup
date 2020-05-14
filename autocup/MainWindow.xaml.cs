@@ -180,7 +180,7 @@ namespace autocup
                 delayTextField.IsEnabled = true;
                 timeElapsed = 0;
                 cups = 0;
-                RPCManager.UpdateRPC("Download at http://cup.wtf", "Idle", null);
+                RPCManager.UpdateRPC("Idle", null);
                 setUIMode(0);
             } 
         }
@@ -196,7 +196,7 @@ namespace autocup
             {
                 case 0:
                     myTimer.Stop();
-                    RPCManager.UpdateRPC("Download at http://cup.wtf", "Idle", null);
+                    RPCManager.UpdateRPC("Idle", null);
                     break;
                 case 1:
                     if (countdown > 0)
@@ -246,7 +246,7 @@ namespace autocup
             this.Dispatcher.Invoke(() =>
             {
                 countdownLabel.Content = "Starting in " + countdown + "...";
-                RPCManager.UpdateRPC("Download at http://cup.wtf", "Preparing to cup...", null);
+                RPCManager.UpdateRPC("Preparing to cup...", null);
             });
         }
         private void UpdateCount()
@@ -279,7 +279,7 @@ namespace autocup
                 DateTime origin = new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc);
                 TimeSpan diff = DateTime.UtcNow.ToUniversalTime() - origin;
                 long startTime = ((long)Math.Floor(diff.TotalSeconds))-(long)timeElapsed;
-                RPCManager.UpdateRPC("Download at http://cup.wtf", "Cupping... (" + cups + " cups this session)", startTime);
+                RPCManager.UpdateRPC("Cupping... (" + cups + " cups this session)", startTime);
             });
         }
 
@@ -297,7 +297,7 @@ namespace autocup
             stopwatchEnabled = false;
             status = 3;
             pauseButton.Content = "Resume";
-            RPCManager.UpdateRPC("Download at http://cup.wtf", "Paused (" + cups + " cups this session)", null);
+            RPCManager.UpdateRPC("Paused (" + cups + " cups this session)", null);
         }
 
         public void cup()

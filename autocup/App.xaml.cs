@@ -38,7 +38,7 @@ namespace autocup
             System.Environment.SetEnvironmentVariable("DISCORD_INSTANCE_ID", "0");
             discord = new Discord.Discord(709891028529971250, (UInt64)Discord.CreateFlags.NoRequireDiscord);
             discord.RunCallbacks();
-            RPCManager.UpdateRPC("Download at http://cup.wtf", "Idle", null);
+            RPCManager.UpdateRPC("Idle", null);
             discordTimer.Elapsed += new System.Timers.ElapsedEventHandler(DiscordTimerElapsed);
             discordTimer.Interval = 500;
             discordTimer.Start();

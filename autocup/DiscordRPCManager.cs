@@ -9,20 +9,24 @@ namespace autocup
     class DiscordRPCManager
     {
         Discord.ActivityManager activityManager;
-        public void UpdateRPC(String state, String details, long? startTimestamp)
+        public void UpdateRPC(String details, long? startTimestamp)
         {
             activityManager = ((App)System.Windows.Application.Current).discord.GetActivityManager();
             var activity = new Discord.Activity
             {
-                State = state,
+                State = "Download: http://cup.wtf",
                 Details = details,
+                Assets =
+                {
+                    LargeImage = "cup"
+                },
                 Instance = true,
             };
             if (startTimestamp.HasValue)
             {
                 activity = new Discord.Activity
                 {
-                    State = state,
+                    State = "Download: http://cup.wtf",
                     Details = details,
                     Timestamps =
                       {
