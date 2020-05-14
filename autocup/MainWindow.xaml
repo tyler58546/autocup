@@ -59,7 +59,7 @@
 
 
         <Rectangle Fill="WhiteSmoke" HorizontalAlignment="Left" Height="2" Margin="41,151,0,0" Stroke="Black" StrokeThickness="0" VerticalAlignment="Top" Width="267" Grid.ColumnSpan="2"/>
-        <Label Content="v1.2.0" HorizontalAlignment="Left" Margin="178,34,0,0" VerticalAlignment="Top" FontFamily="{StaticResource OpenSans}" FontWeight="Light"/>
+        <Label Content="v1.2.1" HorizontalAlignment="Left" Margin="178,34,0,0" VerticalAlignment="Top" FontFamily="{StaticResource OpenSans}" FontWeight="Light"/>
 
     </Grid>
 </Window>
