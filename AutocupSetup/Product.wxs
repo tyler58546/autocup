@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
-  <Product Id="71db32a0-512a-4039-908d-aad3fb712876" Name="Autocup" Language="1033" Version="1.2.0.0" Manufacturer="Tyler Knox" UpgradeCode="99ef595e-859d-4a84-9529-40256a3f77cf">
+  <Product Id="*" Name="Autocup" Language="1033" Version="1.2.2.0" Manufacturer="Tyler Knox" UpgradeCode="99ef595e-859d-4a84-9529-40256a3f77cf">
+    <!-- 71db32a0-512a-4039-908d-aad3fb712876 -->
     <Package Id="*" Keywords="Installer" Description="Autocup Installer" Manufacturer="Tyler Knox" Languages="1033" Compressed="yes"/>
+    <MajorUpgrade DowngradeErrorMessage="A later version of Autocup is already installed. Setup will now exit." />
     <MediaTemplate EmbedCab="yes"/>
     <UIRef Id="WixUI_Minimal" />
     <UIRef Id="WixUI_ErrorProgressText" />

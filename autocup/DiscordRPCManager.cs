@@ -37,20 +37,20 @@ namespace autocup
             }
             try
             {
-                System.GC.EndNoGCRegion();
+                //System.GC.EndNoGCRegion();
             }
             catch (Exception e)
             {
                 Console.WriteLine(e);
             }
-            GC.TryStartNoGCRegion(8388608);
+            //GC.TryStartNoGCRegion(8388608);
             activityManager.UpdateActivity(activity, (result) =>
             {
                 if (result != Discord.Result.Ok)
                 {
                     Console.WriteLine("Failed to update Discord RPC!");
                 }
-                GC.EndNoGCRegion();
+                //GC.EndNoGCRegion();
             });
         }
     }
