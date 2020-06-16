@@ -47,7 +47,14 @@ namespace autocup
         }
         private void DiscordTimerElapsed(object sender, ElapsedEventArgs e)
         {
-            discord.RunCallbacks();
+            try
+            {
+                discord.RunCallbacks();
+            } catch (Exception err)
+            {
+                Console.WriteLine("ERROR: " + err.Message);
+            }
+            
         }
     }
 }
