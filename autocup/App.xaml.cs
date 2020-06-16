@@ -14,9 +14,9 @@ namespace autocup
     /// </summary>
     public partial class App : Application
     {
-        public Discord.Discord discord;
-        DiscordRPCManager RPCManager = new DiscordRPCManager();
-        System.Timers.Timer discordTimer = new System.Timers.Timer();
+        //public Discord.Discord discord;
+        //DiscordRPCManager RPCManager = new DiscordRPCManager();
+        //System.Timers.Timer discordTimer = new System.Timers.Timer();
 
         private async void checkForUpdates()
         {
@@ -35,17 +35,17 @@ namespace autocup
 
         private void Application_Startup(object sender, StartupEventArgs e)
         {
-            System.Environment.SetEnvironmentVariable("DISCORD_INSTANCE_ID", "0");
+            /*System.Environment.SetEnvironmentVariable("DISCORD_INSTANCE_ID", "0");
             discord = new Discord.Discord(709891028529971250, (UInt64)Discord.CreateFlags.NoRequireDiscord);
             discord.RunCallbacks();
             RPCManager.UpdateRPC("Idle", null);
             discordTimer.Elapsed += new System.Timers.ElapsedEventHandler(DiscordTimerElapsed);
             discordTimer.Interval = 500;
-            discordTimer.Start();
+            discordTimer.Start();*/
 
             checkForUpdates();
         }
-        private void DiscordTimerElapsed(object sender, ElapsedEventArgs e)
+        /*private void DiscordTimerElapsed(object sender, ElapsedEventArgs e)
         {
             try
             {
@@ -55,6 +55,6 @@ namespace autocup
                 Console.WriteLine("ERROR: " + err.Message);
             }
             
-        }
+        }*/
     }
 }

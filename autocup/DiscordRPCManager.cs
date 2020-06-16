@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace autocup
 {
-    class DiscordRPCManager
+    /*class DiscordRPCManager
     {
         Discord.ActivityManager activityManager;
         public void UpdateRPC(String details, long? startTimestamp)
@@ -53,5 +53,5 @@ namespace autocup
                 //GC.EndNoGCRegion();
             });
         }
-    }
+    }*/
 }
